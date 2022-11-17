@@ -12,7 +12,7 @@
 </br>
 
 ## 📄About:
-Simple Tic Tac Toe game made in Python with help of Pygame library. All the game is based on a one class.
+Simple Tic Tac Toe game made in Python with help of Pygame library.
 </br>
 </br>
 
