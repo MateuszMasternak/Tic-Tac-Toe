@@ -14,7 +14,7 @@ class Game(object):
         self.xy_color_2 = (255, 255, 0)  # second line of X
         self.opened = [False] * 9
         self.turn = "X"
-        self.board = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+        self.board = [[0, 0, 0] * 3]
         self.moves = 0
         self.started = False
         self.wins = [0, 0]
@@ -57,7 +57,7 @@ class Game(object):
 
         # Texts for menu
         self.games_name = self.name_font.render("Tic Tac Toe", True, self.xy_color_2)
-        self.authors_name = self.author_font.render("made by Mateusz", True, self.xy_color_2)
+        # self.authors_name = self.author_font.render("made by Mateusz", True, self.xy_color_2)
         self.menu_1 = self.menu_font.render(f"Press Q to choice between O and X (first player={self.first_player})",
                                             True, self.xy_color_1)
         self.menu_2 = self.menu_font.render("Press space to start a game", True, self.xy_color_1)
@@ -74,27 +74,21 @@ class Game(object):
         # Run game in a loop
         pg.time.delay(60)
         while True:
-
             if self.menu is False:
                 self.display_menu()
-
-            if self.menu is True:
+            elif self.menu is True:
                 self.display_gameplay()
                 self.not_swap = False
 
             # Handle events
             for event in pg.event.get():
-
                 # Makes exit possible
                 if event.type == pg.QUIT:
                     sys.exit()
-
-                if event.type == pg.KEYDOWN:
-
+                elif event.type == pg.KEYDOWN:
                     if event.key == pg.K_q and self.menu is False:
                         self.swap_signs()
-
-                    if event.key == pg.K_SPACE:
+                    elif event.key == pg.K_SPACE:
                         self.new_game()
 
                 # Display moves
@@ -111,8 +105,7 @@ class Game(object):
                             self.board[0][0] = 2
                         self.opened[0] = True
                         self.moves += 1
-
-                    if self.second.collidepoint(mouse_pos) and self.opened[1] is False:
+                    elif self.second.collidepoint(mouse_pos) and self.opened[1] is False:
                         if self.turn == "X":
                             self.turn = "O"
                             self.board[0][1] = 1
@@ -121,8 +114,7 @@ class Game(object):
                             self.board[0][1] = 2
                         self.opened[1] = True
                         self.moves += 1
-
-                    if self.third.collidepoint(mouse_pos) and self.opened[2] is False:
+                    elif self.third.collidepoint(mouse_pos) and self.opened[2] is False:
                         if self.turn == "X":
                             self.turn = "O"
                             self.board[0][2] = 1
@@ -131,9 +123,8 @@ class Game(object):
                             self.board[0][2] = 2
                         self.opened[2] = True
                         self.moves += 1
-
                     # For second row
-                    if self.fourth.collidepoint(mouse_pos) and self.opened[3] is False:
+                    elif self.fourth.collidepoint(mouse_pos) and self.opened[3] is False:
                         if self.turn == "X":
                             self.turn = "O"
                             self.board[1][0] = 1
@@ -142,8 +133,7 @@ class Game(object):
                             self.board[1][0] = 2
                         self.opened[3] = True
                         self.moves += 1
-
-                    if self.fifth.collidepoint(mouse_pos) and self.opened[4] is False:
+                    elif self.fifth.collidepoint(mouse_pos) and self.opened[4] is False:
                         if self.turn == "X":
                             self.turn = "O"
                             self.board[1][1] = 1
@@ -152,8 +142,7 @@ class Game(object):
                             self.board[1][1] = 2
                         self.opened[4] = True
                         self.moves += 1
-
-                    if self.sixth.collidepoint(mouse_pos) and self.opened[5] is False:
+                    elif self.sixth.collidepoint(mouse_pos) and self.opened[5] is False:
                         if self.turn == "X":
                             self.turn = "O"
                             self.board[1][2] = 1
@@ -162,9 +151,8 @@ class Game(object):
                             self.board[1][2] = 2
                         self.opened[5] = True
                         self.moves += 1
-
                     # For third row
-                    if self.seventh.collidepoint(mouse_pos) and self.opened[6] is False:
+                    elif self.seventh.collidepoint(mouse_pos) and self.opened[6] is False:
                         if self.turn == "X":
                             self.turn = "O"
                             self.board[2][0] = 1
@@ -173,8 +161,7 @@ class Game(object):
                             self.board[2][0] = 2
                         self.opened[6] = True
                         self.moves += 1
-
-                    if self.eighth.collidepoint(mouse_pos) and self.opened[7] is False:
+                    elif self.eighth.collidepoint(mouse_pos) and self.opened[7] is False:
                         if self.turn == "X":
                             self.turn = "O"
                             self.board[2][1] = 1
@@ -183,8 +170,7 @@ class Game(object):
                             self.board[2][1] = 2
                         self.opened[7] = True
                         self.moves += 1
-
-                    if self.ninth.collidepoint(mouse_pos) and self.opened[8] is False:
+                    elif self.ninth.collidepoint(mouse_pos) and self.opened[8] is False:
                         if self.turn == "X":
                             self.turn = "O"
                             self.board[2][2] = 1
@@ -255,14 +241,18 @@ class Game(object):
     def display_menu(self):
         self.window.fill((0, 0, 0))
         self.window.blit(self.games_name, (290, 60))
-        self.window.blit(self.authors_name, (267, 150))
+        # self.window.blit(self.authors_name, (267, 150))
         self.window.blit(self.menu_1, (100, 300))
         self.window.blit(self.menu_2, (305, 370))
 
-    def display_gameplay(self):
-        self.window.fill((0, 0, 0))
+    def display_result(self):
+        self.player_x = self.res_font.render(f"X: {self.wins[0]}", True, self.xy_color_1)
+        self.player_o = self.res_font.render(f"O: {self.wins[1]}", True, self.xy_color_1)
+        self.window.blit(self.scores, (810, 400))
+        self.window.blit(self.player_x, (810, 450))
+        self.window.blit(self.player_o, (810, 500))
 
-        # Fields
+    def display_fields(self):
         self.first = pg.draw.rect(self.window, (220, 220, 220), (40, 30, 200, 200))
         self.second = pg.draw.rect(self.window, (220, 220, 220), (275, 30, 200, 200))
         self.third = pg.draw.rect(self.window, (220, 220, 220), (510, 30, 200, 200))
@@ -272,6 +262,11 @@ class Game(object):
         self.seventh = pg.draw.rect(self.window, (220, 220, 220), (40, 490, 200, 200))
         self.eighth = pg.draw.rect(self.window, (220, 220, 220), (275, 490, 200, 200))
         self.ninth = pg.draw.rect(self.window, (220, 220, 220), (510, 490, 200, 200))
+
+    def display_gameplay(self):
+        self.window.fill((0, 0, 0))
+
+        self.display_fields()
 
         # Signs
         i = 0
@@ -286,19 +281,14 @@ class Game(object):
                     pg.draw.circle(self.window, self.xy_color_2, self.o[i][0], 85, 10)
                 i += 1
 
-        # Result
-        self.player_x = self.res_font.render(f"X: {self.wins[0]}", True, self.xy_color_1)
-        self.player_o = self.res_font.render(f"O: {self.wins[1]}", True, self.xy_color_1)
-        self.window.blit(self.scores, (810, 400))
-        self.window.blit(self.player_x, (810, 450))
-        self.window.blit(self.player_o, (810, 500))
+        self.display_result()
         if self.win_x:
             self.window.blit(self.x_win, (810, 100))
             self.window.blit(self.res, (737, 160))
-        if self.win_o:
+        elif self.win_o:
             self.window.blit(self.o_win, (810, 100))
             self.window.blit(self.res, (737, 160))
-        if self.tie_xo:
+        elif self.tie_xo:
             self.window.blit(self.tie, (855, 100))
             self.window.blit(self.res, (737, 160))
 
@@ -316,23 +306,9 @@ class Game(object):
         self.window.fill((0, 0, 0))
         self.menu = True
 
-        # Fields
-        self.first = pg.draw.rect(self.window, (220, 220, 220), (40, 30, 200, 200))
-        self.second = pg.draw.rect(self.window, (220, 220, 220), (275, 30, 200, 200))
-        self.third = pg.draw.rect(self.window, (220, 220, 220), (510, 30, 200, 200))
-        self.fourth = pg.draw.rect(self.window, (220, 220, 220), (40, 260, 200, 200))
-        self.fifth = pg.draw.rect(self.window, (220, 220, 220), (275, 260, 200, 200))
-        self.sixth = pg.draw.rect(self.window, (220, 220, 220), (510, 260, 200, 200))
-        self.seventh = pg.draw.rect(self.window, (220, 220, 220), (40, 490, 200, 200))
-        self.eighth = pg.draw.rect(self.window, (220, 220, 220), (275, 490, 200, 200))
-        self.ninth = pg.draw.rect(self.window, (220, 220, 220), (510, 490, 200, 200))
+        self.display_fields()
 
-        # Result
-        self.player_x = self.res_font.render(f"X: {self.wins[0]}", True, self.xy_color_1)
-        self.player_o = self.res_font.render(f"O: {self.wins[1]}", True, self.xy_color_1)
-        self.window.blit(self.scores, (810, 400))
-        self.window.blit(self.player_x, (810, 450))
-        self.window.blit(self.player_o, (810, 500))
+        self.display_result()
 
         # Variables reset
         self.opened = [False] * 9
