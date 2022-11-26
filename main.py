@@ -10,9 +10,8 @@ class Game(object):
         self.game_window_height = 720
         self.game_window_width = 1080
         self.menu_was_shown = False
-        self.pink_color = (255, 0, 255)  # first line of X and O
-        self.pink_color = (255, 255, 0)  # second line of X
-        self.field_used = [False] * 9
+        self.yellow_color = (255, 255, 0)  # first line of X and O
+        self.pink_color = (255, 0, 255)  # second line of X
         self.which_sign_turn = "X"
         self.board = [[0, 0, 0] * 3]  # 0 - empty, 1 - X, 2 - O
         self.successful_moves_count = 0
@@ -57,7 +56,7 @@ class Game(object):
         self.verdana_25_bold = pg.font.SysFont("Verdana", 25, bold=True)
 
         # Texts for menu
-        self.render_games_name = self.verdana_80_bold.render("Tic Tac Toe", True, self.pink_color)
+        self.render_games_name = self.verdana_80_bold.render("Tic Tac Toe", True, self.yellow_color)
         # self.authors_name = self.author_font.render("made by Mateusz", True, self.xy_color_2)
         self.render_X_O_choice = self.verdana_30_bold.render(f"Press Q to choice between O and X "
                                                              f"(first player={self.first_player_in_current_round})",
@@ -66,14 +65,14 @@ class Game(object):
                                                                          True, self.pink_color)
 
         # Texts for results
-        self.render_x_wins = self.verdana_40_bold.render("X wins!", True, self.pink_color)
-        self.render_o_wins = self.verdana_40_bold.render("O wins", True, self.pink_color)
+        self.render_x_wins = self.verdana_40_bold.render("X wins!", True, self.yellow_color)
+        self.render_o_wins = self.verdana_40_bold.render("O wins", True, self.yellow_color)
         self.render_restart_game_instruction = self.verdana_25_bold.render("Press space to restart.",
                                                                            True, self.pink_color)
-        self.render_tie = self.verdana_40_bold.render("Tie!", True, self.pink_color)
-        self.render_scores = self.verdana_30_bold.render("Scores:", True, self.pink_color)
-        self.render_x_wins_count = self.verdana_25_bold.render(f"X: {self.wins_count_X_O[0]}", True, self.pink_color)
-        self.render_o_wins_count = self.verdana_25_bold.render(f"O: {self.wins_count_X_O[1]}", True, self.pink_color)
+        self.render_tie = self.verdana_40_bold.render("Tie!", True, self.yellow_color)
+        self.render_scores = self.verdana_30_bold.render("Scores:", True, self.yellow_color)
+        self.render_x_wins_count = self.verdana_25_bold.render(f"X: {self.wins_count_X_O[0]}", True, self.yellow_color)
+        self.render_o_wins_count = self.verdana_25_bold.render(f"O: {self.wins_count_X_O[1]}", True, self.yellow_color)
 
         # Run game in a loop
         pg.time.delay(60)
@@ -100,108 +99,99 @@ class Game(object):
                     mouse_position = pg.mouse.get_pos()
 
                     # For first row
-                    if self.first_row_first_field.collidepoint(mouse_position) and self.field_used[0] is False:
+                    if self.first_row_first_field.collidepoint(mouse_position) and self.board[0][0] == 0:
                         if self.which_sign_turn == "X":
                             self.which_sign_turn = "O"
                             self.board[0][0] = 1
                         else:
                             self.which_sign_turn = "X"
                             self.board[0][0] = 2
-                        self.field_used[0] = True
                         self.successful_moves_count += 1
-                    elif self.first_row_second_field.collidepoint(mouse_position) and self.field_used[1] is False:
+                    elif self.first_row_second_field.collidepoint(mouse_position) and self.board[0][1] == 0:
                         if self.which_sign_turn == "X":
                             self.which_sign_turn = "O"
                             self.board[0][1] = 1
                         else:
                             self.which_sign_turn = "X"
                             self.board[0][1] = 2
-                        self.field_used[1] = True
                         self.successful_moves_count += 1
-                    elif self.first_row_third_field.collidepoint(mouse_position) and self.field_used[2] is False:
+                    elif self.first_row_third_field.collidepoint(mouse_position) and self.board[0][2] == 0:
                         if self.which_sign_turn == "X":
                             self.which_sign_turn = "O"
                             self.board[0][2] = 1
                         else:
                             self.which_sign_turn = "X"
                             self.board[0][2] = 2
-                        self.field_used[2] = True
                         self.successful_moves_count += 1
                     # For second row
-                    elif self.second_row_first_field.collidepoint(mouse_position) and self.field_used[3] is False:
+                    elif self.second_row_first_field.collidepoint(mouse_position) and self.board[1][0] == 0:
                         if self.which_sign_turn == "X":
                             self.which_sign_turn = "O"
                             self.board[1][0] = 1
                         else:
                             self.which_sign_turn = "X"
                             self.board[1][0] = 2
-                        self.field_used[3] = True
                         self.successful_moves_count += 1
-                    elif self.second_row_second_field.collidepoint(mouse_position) and self.field_used[4] is False:
+                    elif self.second_row_second_field.collidepoint(mouse_position) and self.board[1][1] == 0:
                         if self.which_sign_turn == "X":
                             self.which_sign_turn = "O"
                             self.board[1][1] = 1
                         else:
                             self.which_sign_turn = "X"
                             self.board[1][1] = 2
-                        self.field_used[4] = True
                         self.successful_moves_count += 1
-                    elif self.second_row_third_field.collidepoint(mouse_position) and self.field_used[5] is False:
+                    elif self.second_row_third_field.collidepoint(mouse_position) and self.board[1][2] == 0:
                         if self.which_sign_turn == "X":
                             self.which_sign_turn = "O"
                             self.board[1][2] = 1
                         else:
                             self.which_sign_turn = "X"
                             self.board[1][2] = 2
-                        self.field_used[5] = True
                         self.successful_moves_count += 1
                     # For third row
-                    elif self.third_row_first_field.collidepoint(mouse_position) and self.field_used[6] is False:
+                    elif self.third_row_first_field.collidepoint(mouse_position) and self.board[2][0] == 0:
                         if self.which_sign_turn == "X":
                             self.which_sign_turn = "O"
                             self.board[2][0] = 1
                         else:
                             self.which_sign_turn = "X"
                             self.board[2][0] = 2
-                        self.field_used[6] = True
                         self.successful_moves_count += 1
-                    elif self.third_row_second_field.collidepoint(mouse_position) and self.field_used[7] is False:
+                    elif self.third_row_second_field.collidepoint(mouse_position) and self.board[2][1] == 0:
                         if self.which_sign_turn == "X":
                             self.which_sign_turn = "O"
                             self.board[2][1] = 1
                         else:
                             self.which_sign_turn = "X"
                             self.board[2][1] = 2
-                        self.field_used[7] = True
                         self.successful_moves_count += 1
-                    elif self.third_row_third_field.collidepoint(mouse_position) and self.field_used[8] is False:
+                    elif self.third_row_third_field.collidepoint(mouse_position) and self.board[2][2] == 0:
                         if self.which_sign_turn == "X":
                             self.which_sign_turn = "O"
                             self.board[2][2] = 1
                         else:
                             self.which_sign_turn = "X"
                             self.board[2][2] = 2
-                        self.field_used[8] = True
                         self.successful_moves_count += 1
 
-            if self.check_win(1) is True and self.win_x is False:
+            if self.check_is_winner(1) is True and self.win_x is False:
                 self.win_x = True
                 self.started = False
                 self.wins_count_X_O[0] += 1
                 self.successful_moves_count = 0
-            elif self.check_win(2) is True and self.win_o is False:
+            elif self.check_is_winner(2) is True and self.win_o is False:
                 self.win_o = True
                 self.started = False
                 self.wins_count_X_O[1] += 1
                 self.successful_moves_count = 0
-            elif self.check_tie() is True and self.tie_xo is False:
+            elif self.check_is_tie() is True and self.tie_xo is False:
                 self.tie_xo = True
                 self.started = False
                 self.successful_moves_count = 0
 
             pg.display.update()
 
-    def check_win(self, player):
+    def check_is_winner(self, player):
 
         for row in self.board:
             for tile in row:
@@ -237,21 +227,21 @@ class Game(object):
         else:
             return True
 
-    def check_tie(self):
+    def check_is_tie(self):
         if self.successful_moves_count == 9:
             return True
         return False
 
     def display_menu(self):
         self.game_window.fill((0, 0, 0))
-        self.game_window.blit(self.render_games_name, (290, 60))
+        self.game_window.blit(self.render_games_name, (330, 60))
         # self.window.blit(self.authors_name, (267, 150))
-        self.game_window.blit(self.render_X_O_choice, (100, 300))
-        self.game_window.blit(self.render_start_game_instruction, (305, 370))
+        self.game_window.blit(self.render_X_O_choice, (150, 300))
+        self.game_window.blit(self.render_start_game_instruction, (335, 370))
 
     def display_result(self):
-        self.render_x_wins_count = self.verdana_25_bold.render(f"X: {self.wins_count_X_O[0]}", True, self.pink_color)
-        self.render_o_wins_count = self.verdana_25_bold.render(f"O: {self.wins_count_X_O[1]}", True, self.pink_color)
+        self.render_x_wins_count = self.verdana_25_bold.render(f"X: {self.wins_count_X_O[0]}", True, self.yellow_color)
+        self.render_o_wins_count = self.verdana_25_bold.render(f"O: {self.wins_count_X_O[1]}", True, self.yellow_color)
         self.game_window.blit(self.render_scores, (810, 400))
         self.game_window.blit(self.render_x_wins_count, (810, 450))
         self.game_window.blit(self.render_o_wins_count, (810, 500))
@@ -282,19 +272,19 @@ class Game(object):
                     pg.draw.line(self.game_window, self.pink_color, self.x_second_line_draw_positions[i][0],
                                  self.x_second_line_draw_positions[i][1], 15)
                 elif field == 2:
-                    pg.draw.circle(self.game_window, self.pink_color, self.o_draw_positions[i][0], 85, 10)
+                    pg.draw.circle(self.game_window, self.yellow_color, self.o_draw_positions[i][0], 85, 10)
                 i += 1
 
         self.display_result()
         if self.win_x:
-            self.game_window.blit(self.render_x_wins, (810, 100))
-            self.game_window.blit(self.render_restart_game_instruction, (737, 160))
+            self.game_window.blit(self.render_x_wins, (830, 100))
+            self.game_window.blit(self.render_restart_game_instruction, (755, 160))
         elif self.win_o:
-            self.game_window.blit(self.render_o_wins, (810, 100))
-            self.game_window.blit(self.render_restart_game_instruction, (737, 160))
+            self.game_window.blit(self.render_o_wins, (830, 100))
+            self.game_window.blit(self.render_restart_game_instruction, (755, 160))
         elif self.tie_xo:
-            self.game_window.blit(self.render_tie, (855, 100))
-            self.game_window.blit(self.render_restart_game_instruction, (737, 160))
+            self.game_window.blit(self.render_tie, (870, 100))
+            self.game_window.blit(self.render_restart_game_instruction, (755, 160))
 
     def swap_signs(self):
         if self.first_player_in_current_round == "X":
@@ -315,7 +305,6 @@ class Game(object):
         self.display_result()
 
         # Variables reset
-        self.field_used = [False] * 9
         self.successful_moves_count = 0
         self.started = True
         self.board = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
@@ -326,6 +315,9 @@ class Game(object):
         # Swap players in all new rounds
         if self.not_swap is False:
             self.swap_signs()
+
+    def run_game(self):
+        pass
 
 
 if __name__ == "__main__":
