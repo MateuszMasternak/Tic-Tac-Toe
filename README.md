@@ -2,7 +2,7 @@
 </br>
 
 ## 🎥Demo:
-![](https://j.gifs.com/83N1Jl.gif)
+![](https://j.gifs.com/J8xX5K.gif)
 </br>
 </br>
 
@@ -12,7 +12,7 @@
 </br>
 
 ## 📄About:
-Simple Tic Tac Toe game made in Python with help of Pygame library.
+A simple Tic Tac Toe game made in Python using the Pygame library.
 </br>
 </br>
 
